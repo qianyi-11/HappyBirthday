@@ -6,7 +6,15 @@ document.addEventListener('mousemove', (e) => {
 });
 
 // Typing effect for greeting
-const greetingText = "Hey You Know What! You're the most adorable human i ever met! 💖";
+const greetingText = `wuhuuu~ 是什么日子呢 是我小baby - JiaJun的生日！ 生日快乐baby~
+恭喜你被我恭喜到了🤪 ·大个女喽· 是不是从小baby变成大baby了呢 不是噢~在我眼里你永远都是我最爱的小baby
+（ yiii~将gelii derr HAHAHAHHA
+祝你每天都吃饱睡饱 没有压力🤗！希望你在新的一岁里每天都能开心快乐，每天想我爱我~ 嘻嘻
+即将成为美美牙医lerrr~ 我subscribe了你的永久配套 你逃不掉了哈哈哈哈哈
+爱你噢 jiajun bb😘
+(\_/)
+(•.•)
+/>❤️❤️❤️`;
 const greetingElement = document.querySelector('.greeting');
 let charIndex = 0;
 
