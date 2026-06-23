@@ -493,16 +493,62 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            body {
+                padding: 0 1rem;
+            }
+
             .welcome h1 {
-                font-size: 3rem;
+                font-size: 2.6rem;
+            }
+
+            .welcome p {
+                font-size: 1.05rem;
             }
 
             .memory-container {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+
+            .memory-card {
+                padding: 1rem;
+            }
+
+            .memory-img {
+                height: 180px;
+            }
+
+            .final-message {
+                padding: 2rem 1rem;
             }
 
             .final-message h2 {
-                font-size: 2.5rem;
+                font-size: 2.3rem;
+            }
+
+            .special-panel .panel-card {
+                padding: 1.5rem;
+            }
+
+            .special-panel .pick-buttons {
+                gap: 0.5rem;
+            }
+
+            .special-panel .pick-buttons button {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            .qianyi-btn,
+            .goodbye-btn {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .qianyi-btn {
+                display: block;
+                margin: 1rem auto 0;
             }
         }
     </style>
@@ -649,6 +695,7 @@
 (•.•)
 /&gt;❤️❤️❤️</div>
         <p>生日快乐 baby~ LOVE YOUUU💖</p>
+        <p>🤍from qianyi钎毅🤍</p>
         <button class="goodbye-btn" id="special-btn">Special for You</button>
         <a class="qianyi-btn" href="https://www.instagram.com/leeqyi_/?hl=en" target="_blank" rel="noopener noreferrer">qianyi</a>
         <div class="special-panel" id="special-panel">
