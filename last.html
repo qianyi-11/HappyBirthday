@@ -296,6 +296,143 @@
             box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
         }
 
+        .back-button {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 999;
+        }
+
+        .back-button button {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #ff69b4;
+            color: #ff69b4;
+            border-radius: 999px;
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .back-button button:hover {
+            background: #ff69b4;
+            color: white;
+        }
+
+        .qianyi-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            margin-left: 1rem;
+            padding: 0.9rem 1.5rem;
+            background: #ffffff;
+            color: #ff69b4;
+            border: 2px solid #ff69b4;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .qianyi-btn:hover {
+            background: #ff69b4;
+            color: white;
+        }
+
+        .special-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .special-panel.open {
+            display: flex;
+        }
+
+        .special-panel .panel-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+        }
+
+        .special-panel h3 {
+            margin-bottom: 1rem;
+            color: #ff4da6;
+            font-size: 1.8rem;
+        }
+
+        .special-panel .pick-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .special-panel .pick-buttons button {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            border: 2px solid #ff69b4;
+            background: #fff0fb;
+            color: #ff69b4;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .special-panel .pick-buttons button:hover,
+        .special-panel .pick-buttons button.selected,
+        .special-panel .pick-buttons button.active {
+            transform: scale(1.1);
+            background: #ff69b4;
+            color: white;
+            box-shadow: 0 0 18px rgba(255, 105, 180, 0.7);
+        }
+
+        .special-panel .pick-buttons button.active {
+            animation: pulseLight 0.8s ease-in-out infinite;
+        }
+
+        .special-panel .picker-description {
+            margin-top: 1rem;
+            color: #4a4a4a;
+            font-size: 1rem;
+            min-height: 1.4em;
+        }
+
+        @keyframes pulseLight {
+            0%, 100% {
+                transform: scale(1.1);
+                box-shadow: 0 0 18px rgba(255, 105, 180, 0.7);
+            }
+            50% {
+                transform: scale(1.2);
+                box-shadow: 0 0 28px rgba(255, 105, 180, 0.9);
+            }
+        }
+
+        .special-panel .close-panel {
+            margin-top: 1.5rem;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 999px;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+        }
+
         @keyframes float {
 
             0%,
@@ -372,6 +509,7 @@
 </head>
 
 <body>
+    <div class="back-button"><button type="button" onclick="history.back()">←</button></div>
     <div class="magic-sparkles"></div>
     <div class="floating-hearts">
         <!-- Hearts will be generated via CSS -->
@@ -384,7 +522,7 @@
 
     <section class="welcome">
         <h1>Our Beautiful Moments Together</h1>
-        <p>Every moment spent with you 都很开心，我真的很享受与你在一起的每一刻...</p>
+        <p>Every moment spent with you 都很开心，我真的很享受与你在一起的每一刻~</p>
     </section>
 
     <div class="memory-container">
@@ -511,8 +649,79 @@
 (•.•)
 /&gt;❤️❤️❤️</div>
         <p>生日快乐 baby~ LOVE YOUUU💖</p>
-        <a href="#" class="goodbye-btn">MISS U 💝</a>
+        <button class="goodbye-btn" id="special-btn">Special for You</button>
+        <a class="qianyi-btn" href="https://www.instagram.com/leeqyi_/?hl=en" target="_blank" rel="noopener noreferrer">qianyi</a>
+        <div class="special-panel" id="special-panel">
+            <div class="panel-card">
+                        <h3>Lucky Draw</h3>
+                <div class="pick-buttons">
+                    <button class="pick-num" data-value="1" disabled>1</button>
+                    <button class="pick-num" data-value="2" disabled>2</button>
+                    <button class="pick-num" data-value="3" disabled>3</button>
+                </div>
+                <div class="picker-description" id="picker-description">Press START to begin the lucky draw.</div>
+                <button class="close-panel" id="start-draw">START</button>
+                <button class="close-panel" id="close-panel">Close</button>
+            </div>
+        </div>
     </section>
+    <script>
+        const specialBtn = document.getElementById('special-btn');
+        const specialPanel = document.getElementById('special-panel');
+        const pickerDescription = document.getElementById('picker-description');
+        const pickButtons = Array.from(document.querySelectorAll('.pick-num'));
+        const startDraw = document.getElementById('start-draw');
+        const closePanel = document.getElementById('close-panel');
+
+        function resetLuckyDraw() {
+            pickerDescription.textContent = 'Press START to begin the lucky draw.';
+            pickButtons.forEach(btn => {
+                btn.classList.remove('active', 'selected');
+            });
+            startDraw.textContent = 'START';
+            startDraw.disabled = false;
+            startDraw.style.display = 'inline-block';
+        }
+
+        specialBtn.addEventListener('click', () => {
+            specialPanel.classList.add('open');
+            resetLuckyDraw();
+        });
+
+        startDraw.addEventListener('click', () => {
+            startDraw.disabled = true;
+            startDraw.textContent = 'DRAWING...';
+
+            let currentIndex = 0;
+            const intervalMs = 250;
+            const durationMs = 3000;
+
+            const drawInterval = setInterval(() => {
+                pickButtons.forEach(btn => btn.classList.remove('active'));
+                pickButtons[currentIndex].classList.add('active');
+                currentIndex = (currentIndex + 1) % pickButtons.length;
+            }, intervalMs);
+
+            setTimeout(() => {
+                clearInterval(drawInterval);
+                const finalIndex = Math.floor(Math.random() * pickButtons.length);
+                pickButtons.forEach(btn => btn.classList.remove('active'));
+                pickButtons[finalIndex].classList.add('active');
+                pickerDescription.textContent = `This is your lucky number ${finalIndex + 1}, press "qianyi" button to let him know~`;
+                startDraw.style.display = 'none';
+            }, durationMs);
+        });
+
+        closePanel.addEventListener('click', () => {
+            specialPanel.classList.remove('open');
+        });
+
+        specialPanel.addEventListener('click', (event) => {
+            if (event.target === specialPanel) {
+                specialPanel.classList.remove('open');
+            }
+        });
+    </script>
 </body>
 
 </html>
