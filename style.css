@@ -109,7 +109,32 @@ h1 {
 }
 
 @media (max-width: 768px) {
-    h1 { font-size: 2rem; }
-    .greeting { font-size: 1.2rem; }
-    .cta-button { font-size: 1rem; }
+    body {
+        padding: 0 1rem;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .greeting {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    .cta-button {
+        font-size: 1rem;
+        padding: 0.9rem 1.5rem;
+    }
+
+    .back-button {
+        top: 0.8rem;
+        left: 0.8rem;
+    }
+
+    .back-button button {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
 }
