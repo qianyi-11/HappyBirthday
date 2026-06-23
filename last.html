@@ -556,7 +556,7 @@
 </head>
 
 <body>
-    <div class="back-button"><button type="button" onclick="history.back()">←</button></div>
+    <div class="back-button"><button type="button" onclick="goBack()">←</button></div>
     <div class="magic-sparkles"></div>
     <div class="floating-hearts">
         <!-- Hearts will be generated via CSS -->
@@ -769,6 +769,14 @@
                 specialPanel.classList.remove('open');
             }
         });
+
+        function goBack() {
+            if (document.referrer && document.referrer !== window.location.href) {
+                history.back();
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
     </script>
 </body>
 
