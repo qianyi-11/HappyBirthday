@@ -68,6 +68,34 @@ h1 {
     box-shadow: 0 0 25px rgba(255, 105, 180, 0.7);
 }
 
+.back-button {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 20;
+}
+
+.back-button button {
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #ff69b4;
+    color: #ff69b4;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-button button:hover {
+    background: #ff69b4;
+    color: white;
+}
+
 .floating {
     position: absolute;
     pointer-events: none;
