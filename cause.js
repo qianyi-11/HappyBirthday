@@ -13,12 +13,12 @@
     { 
         text: "今年的生日没能在正日和你一起过，但也只会是今年~ ✨ ", 
         emoji: "💕",
-        gif: "gif1.gif"
+        gif: "sayang.gif"
     },
     { 
         text: "你在我心里真的很重要oo~ 🫶 ", 
         emoji: "🌟",
-        gif: "gif2.gif"
+        gif: "kiss.gif"
     }
 ];
 
