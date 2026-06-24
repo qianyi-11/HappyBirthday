@@ -338,6 +338,157 @@
             color: white;
         }
 
+        .surprise-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            margin-left: 1rem;
+            padding: 0.9rem 1.5rem;
+            background: linear-gradient(45deg, #ff69b4, #da70d6);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        }
+
+        .surprise-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
+        }
+
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            padding: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .image-modal.open {
+            display: flex;
+        }
+
+        .image-modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: white;
+            border-radius: 20px;
+            padding: 1rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        .image-modal-gallery {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-modal-gallery img {
+            width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 15px;
+            display: none;
+        }
+
+        .image-modal-gallery img.active {
+            display: block;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 105, 180, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .gallery-nav:hover {
+            background: #da70d6;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-nav.prev {
+            left: 1rem;
+        }
+
+        .gallery-nav.next {
+            right: 1rem;
+        }
+
+        .gallery-counter {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            z-index: 10;
+        }
+
+        .close-image-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 11;
+        }
+
+        .close-image-modal:hover {
+            background: #da70d6;
+            transform: scale(1.1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         .special-panel {
             display: none;
             position: fixed;
@@ -698,6 +849,7 @@
         <p>生日快乐 baby~ LOVE YOUUU💖</p>
         <p>🤍from qianyi钎毅🤍</p>
         <button class="goodbye-btn" id="special-btn">Special for You</button>
+        <button class="surprise-btn" id="surprise-btn">SURPRISE 🎉</button>
         <a class="qianyi-btn" href="https://www.instagram.com/leeqyi_/?hl=en" target="_blank" rel="noopener noreferrer">qianyi</a>
         <div class="special-panel" id="special-panel">
             <div class="panel-card">
@@ -712,6 +864,18 @@
                 <button class="close-panel" id="close-panel">Close</button>
             </div>
         </div>
+        <div class="image-modal" id="image-modal">
+            <div class="image-modal-content">
+                <button class="close-image-modal" id="close-image-modal">&times;</button>
+                <div class="image-modal-gallery">
+                    <img src="photo/gpt hb.png" alt="SURPRISE 1" class="active">
+                    <img src="photo/jj sleeping.jpeg" alt="JJ Sleeping">
+                    <button class="gallery-nav prev" id="prev-image">&#10094;</button>
+                    <button class="gallery-nav next" id="next-image">&#10095;</button>
+                    <div class="gallery-counter"><span id="current-image">1</span> / <span id="total-images">2</span></div>
+                </div>
+            </div>
+        </div>
     </section>
     <script>
         const specialBtn = document.getElementById('special-btn');
@@ -720,6 +884,48 @@
         const pickButtons = Array.from(document.querySelectorAll('.pick-num'));
         const startDraw = document.getElementById('start-draw');
         const closePanel = document.getElementById('close-panel');
+        
+        // SURPRISE button functionality
+        const surpriseBtn = document.getElementById('surprise-btn');
+        const imageModal = document.getElementById('image-modal');
+        const closeImageModal = document.getElementById('close-image-modal');
+        const prevImageBtn = document.getElementById('prev-image');
+        const nextImageBtn = document.getElementById('next-image');
+        const currentImageSpan = document.getElementById('current-image');
+        const galleryImages = document.querySelectorAll('.image-modal-gallery img');
+        let currentImageIndex = 0;
+        
+        function showImage(index) {
+            galleryImages.forEach(img => img.classList.remove('active'));
+            galleryImages[index].classList.add('active');
+            currentImageSpan.textContent = index + 1;
+        }
+        
+        surpriseBtn.addEventListener('click', () => {
+            imageModal.classList.add('open');
+            currentImageIndex = 0;
+            showImage(0);
+        });
+        
+        closeImageModal.addEventListener('click', () => {
+            imageModal.classList.remove('open');
+        });
+        
+        prevImageBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+            showImage(currentImageIndex);
+        });
+        
+        nextImageBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            showImage(currentImageIndex);
+        });
+        
+        imageModal.addEventListener('click', (event) => {
+            if (event.target === imageModal) {
+                imageModal.classList.remove('open');
+            }
+        });
 
         function resetLuckyDraw() {
             pickerDescription.textContent = 'Press START to begin the lucky draw.';
